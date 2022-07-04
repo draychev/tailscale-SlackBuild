@@ -72,6 +72,7 @@ mkdir -p $PKG/install
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
+cat $CWD/douninst.sh > $PKG/install/douninst.sh
 
 mkdir -p $PKG/usr/bin
 cp $TMP/${PRGNAM}_$VERSION/tailscale $PKG/usr/bin/tailscale
