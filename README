@@ -1,0 +1,5 @@
+Tailscale is a VPN service that makes the devices and applications you own accessible anywhere in the world, securely and effortlessly. It enables encrypted point-to-point connections using the open source WireGuard protocol, which means only devices on your private network can communicate with each other. (More: https://tailscale.com/kb/1151/what-is-tailscale/)
+
+Inspiration for this package:
+ - https://github.com/shayne/unRAID-NerdPack/tree/6085c955d8d9b1319219885c255c707da84fb6e4/source/SlackBuild/tailscale
+ - https://rakhesh.com/linux-bsd/tailscale-on-openbsd/
