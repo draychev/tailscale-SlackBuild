@@ -2,50 +2,50 @@
 
 # Start/stop/restart tailscale
 
+
 tailscale_start() {
-   if [[ -e /var/lock/tailscale ]]; then
+  if [[ -e /var/lock/tailscale ]]; then
       echo "TAILSCALE is already running, or there is a stale lock file at "
       echo "/var/lock/tailscale - if you are sure that tailscale is not already "
       echo "running, then remove the lock and try again."
       return 1
-   else
-      # su - $TAILSCALE_USER -c '/usr/bin/tailscale --datadir /etc/tailscale'
-      /usr/sbin/tailscaled
+  else
       touch /var/lock/tailscale
+      /usr/sbin/tailscaled --state=tailscaled.state &
       return 0
-   fi
+  fi
 }
 
 tailscale_stop() {
-   killall -SIGINT tailscale 2>/dev/null
-   RETVAL=$?
-   if (( "$RETVAL" != 0 )); then
-      echo "TAILSCALE does not appear to be running..."
-   else
-      rm -f /var/lock/tailscale
-   fi
-   return $RETVAL
+    killall -SIGINT tailscaled 2>/dev/null
+    RETVAL=$?
+    if (( "$RETVAL" != 0 )); then
+	echo "TAILSCALE does not appear to be running..."
+    else
+	rm -f /var/lock/tailscale
+    fi
+    return $RETVAL
 }
 
 tailscale_restart() {
-   tailscale_stop
-   sleep 1
-   tailscale_start
+    tailscale_stop
+    sleep 1
+    tailscale_start
 }
 
 case "$1" in
-   'start')
-   tailscale_start
-   ;;
-   'stop')
-   tailscale_stop
-   ;;
-   'restart')
-   tailscale_restart
-   ;;
-   *)
-   echo "Usage: $0 start|stop|restart"
-   exit 1
+    'start')
+	tailscale_start
+	;;
+    'stop')
+	tailscale_stop
+	;;
+    'restart')
+	tailscale_restart
+	;;
+    *)
+	echo "Usage: $0 start|stop|restart"
+	exit 1
 esac
 
 exit $?
