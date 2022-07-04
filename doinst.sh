@@ -19,7 +19,3 @@ preserve_perms() {
 }
 
 preserve_perms etc/rc.d/rc.tailscale.new
-
-
-
-tailscale -c '/usr/bin/tailscale --makeconf --datadir=/etc/tailscale'
