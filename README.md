@@ -13,3 +13,13 @@ This repo contains all the scripts needed to build a Tailscale 1.30.0 package fo
 1. run `make install-linter` to install `sbo-maintainer-tools`
 2. run `make lint`
 3. run `make build-package`
+
+
+## Thanks!
+### Inspiration for this package:
+   - https://github.com/shayne/unRAID-NerdPack
+   - https://rakhesh.com/linux-bsd/tailscale-on-openbsd/
+
+### Documentation:
+ - https://slackbuilds.org/guidelines/
+ - https://slackbuilds.org/templates/
