@@ -23,3 +23,8 @@ install: build-package
 prep-for-submission: lint
 	tar -czf tailscale_1.30.0.tgz tailscale/
 	ls -lah tailscale_1.30.0.tgz
+
+
+.PHONY: clean
+clean:
+	rm -rf *.tar.gz *.tgz
