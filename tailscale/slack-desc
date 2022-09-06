@@ -6,8 +6,14 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
          |-----handy-ruler------------------------------------------------------|
-tailscale: tailscale
+tailscale: tailscale (short desc)
 tailscale:
-tailscale: The easiest, most secure, cross platform way to use WireGuard
-tailscale: + oauth2 + 2FA/SSO
+tailscale: Tailscale is a VPN service that makes the devices and applications you
+tailscale: own accessible anywhere in the world, securely and effortlessly. It
+tailscale: enables encrypted point-to-point connections using the open source
+tailscale: WireGuard protocol, which means only devices on your private network
+tailscale: can communicate with each other.
+tailscale:
+tailscale:
+tailscale:
 tailscale:

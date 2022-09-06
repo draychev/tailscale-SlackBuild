@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Slackware build script for tailscale
 
@@ -22,29 +22,40 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+cd $(dirname $0) ; CWD=$(pwd)
+
 PRGNAM=tailscale
-VERSION=${VERSION:-1.26.1_amd64}
+VERSION=${VERSION:-1.30.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
+PKGTYPE=${PKGTYPE:-tgz}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
-    arm*) ARCH=arm ;;
-       *) ARCH=$( uname -m ) ;;
+      i?86) ARCH=386 ;;
+    x86_64) ARCH=amd64 ;;
+      arm*) ARCH=arm ;;
+         *) ARCH=$( uname -m ) ;;
   esac
 fi
 
-CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 TAILSCALE_USER=${TAILSCALE_USER:-tailscale}
 
+# If the variable PRINT_PACKAGE_NAME is set, then this script will report what
+# the name of the created package would be, and then exit. This information
+# could be useful to other scripts.
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+  exit 0
+fi
+
 set -eux
 
-FILE="tailscale_${VERSION}.tgz"
+FILE="tailscale_${VERSION}_${ARCH}.tgz"
 if [[ -f "$FILE" ]]; then
     echo "$FILE already exists."
 else
@@ -55,9 +66,10 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf ${PRGNAM}-$VERSION
-tar xvf $CWD/${PRGNAM}_$VERSION.tgz
-rm -rf $CWD/${PRGNAM}_$VERSION.tgz
-cd ${PRGNAM}_$VERSION
+TS_BINARY=${PRGNAM}_${VERSION}_${ARCH}
+tar xvf $CWD/${TS_BINARY}.tgz
+rm -rf $CWD/${TS_BINARY}.tgz
+cd ${TS_BINARY}
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -75,9 +87,9 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cat $CWD/douninst.sh > $PKG/install/douninst.sh
 
 mkdir -p $PKG/usr/bin
-cp $TMP/${PRGNAM}_$VERSION/tailscale $PKG/usr/bin/tailscale
+cp $TMP/${TS_BINARY}/tailscale $PKG/usr/bin/tailscale
 mkdir -p $PKG/usr/sbin
-cp $TMP/${PRGNAM}_$VERSION/tailscaled $PKG/usr/sbin/tailscaled
+cp $TMP/${TS_BINARY}/tailscaled $PKG/usr/sbin/tailscaled
 mkdir -p $PKG/var/run/tailscale
 mkdir -p $PKG/var/lib/tailscale
 
@@ -88,4 +100,4 @@ sed -e "s/@TAILSCALE_USER@/$TAILSCALE_USER/g" -e "s/@VERSION@/$VERSION/g" $CWD/r
 chmod +x $PKG/etc/rc.d/rc.tailscale.new
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
