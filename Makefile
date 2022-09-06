@@ -10,11 +10,12 @@ lint:
 
 .PHONY: build-package
 build-package: lint
-	sudo bash ./tailscale/tailscale.SlackBuild
+	tar -czf tailscale.tar.gz ./tailscale
 
 
 .PHONY: install
 install: build-package
+	sudo bash ./tailscale/tailscale.SlackBuild
 	sudo installpkg /tmp/tailscale-1.30.0-amd64-1_SBo.tgz
 
 
