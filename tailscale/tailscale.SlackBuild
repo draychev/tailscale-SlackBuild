@@ -32,12 +32,25 @@ PKGTYPE=${PKGTYPE:-tgz}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-      i?86) ARCH=386 ;;
-    x86_64) ARCH=amd64 ;;
-      arm*) ARCH=arm ;;
-         *) ARCH=$( uname -m ) ;;
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
   esac
 fi
+
+if [ "$ARCH" = "i586" ]; then
+  SRCARCH=386
+elif [ "$ARCH" = "i686" ]; then
+  SRCARCH=386
+elif [ "$ARCH" = "x86_64" ]; then
+  SRCARCH=amd64
+elif [ "$ARCH" = "arm" ]; then
+  SRCARCH=arm
+else
+  SRCARCH=386
+fi
+
+set -e
 
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
@@ -49,7 +62,7 @@ TAILSCALE_USER=${TAILSCALE_USER:-tailscale}
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+  echo "$PRGNAM-$VERSION-$SRCARCH-$BUILD$TAG.$PKGTYPE"
   exit 0
 fi
 
@@ -100,4 +113,4 @@ sed -e "s/@TAILSCALE_USER@/$TAILSCALE_USER/g" -e "s/@VERSION@/$VERSION/g" $CWD/r
 chmod +x $PKG/etc/rc.d/rc.tailscale.new
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$SRCARCH-$BUILD$TAG.$PKGTYPE
