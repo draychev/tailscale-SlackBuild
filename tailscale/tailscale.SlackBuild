@@ -68,7 +68,7 @@ fi
 
 set -eux
 
-FILE="tailscale_${VERSION}_${ARCH}.tgz"
+FILE="tailscale_${VERSION}_${SRCARCH}.tgz"
 if [[ -f "$FILE" ]]; then
     echo "$FILE already exists."
 else
@@ -79,7 +79,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf ${PRGNAM}-$VERSION
-TS_BINARY=${PRGNAM}_${VERSION}_${ARCH}
+TS_BINARY=${PRGNAM}_${VERSION}_${SRCARCH}
 tar xvf $CWD/${TS_BINARY}.tgz
 rm -rf $CWD/${TS_BINARY}.tgz
 cd ${TS_BINARY}
