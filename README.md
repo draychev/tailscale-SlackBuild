@@ -1,9 +1,9 @@
-This repo contains all the scripts needed to build a Tailscale 1.34.1 package for Slackware 15.0
+This repo contains all the scripts needed to build a Tailscale 1.38.4 package for Slackware 15.0
 
 ## Install Package
 1. run `make install` to build and install the package (look in the Makefile for more options)
    - this will `sudo bash ./tailscale/tailscale.SlackBuild`
-   - and then it will `sudo installpkg /tmp/tailscale-1.34.1-amd64-1_SBo.tgz`
+   - and then it will `sudo installpkg /tmp/tailscale-1.38.4-amd64-1_SBo.tgz`
 2. ensure the daemon starts on bootup: `sudo chmod +x /etc/rc.d/rc.tailscale`
 3. start the dameon: `sudo /etc/rc.d/rc.tailscale start`
 4. check the logs: `sudo tail -f /var/log/messages | grep -i tailscale`

@@ -16,13 +16,13 @@ build-package: lint
 .PHONY: install
 install: build-package
 	sudo bash ./tailscale/tailscale.SlackBuild
-	sudo installpkg /tmp/tailscale-1.34.1-amd64-1_SBo.tgz
+	sudo installpkg /tmp/tailscale-1.38.4-amd64-1_SBo.tgz
 
 
 .PHONY: prep-for-submission
 prep-for-submission: lint
-	tar -czf tailscale_1.34.1.tgz tailscale/
-	ls -lah tailscale_1.34.1.tgz
+	tar -czf tailscale_1.38.4.tgz tailscale/
+	ls -lah tailscale_1.38.4.tgz
 
 
 .PHONY: clean
