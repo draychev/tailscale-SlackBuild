@@ -5,12 +5,17 @@ install-linter:
 	sudo sbopkg -i sbo-maintainer-tools
 
 .PHONY: lint
-lint:
+lint: build-package
+	@echo -e "\n\n>>> Running sbolint"
 	/usr/bin/sbolint ./tailscale
+	@echo -e "\n\n>>> Running sbopkglint"
+	/usr/bin/sbopkglint ./tailscale.tgz
 
 .PHONY: build-package
-build-package: lint
-	tar -czf tailscale.tar.gz ./tailscale
+build-package: clean
+	cp -R ./tailscale ./install
+	tar -czf tailscale.tgz ./install
+	rm -rf ./install
 
 
 .PHONY: install

@@ -12,7 +12,7 @@ This repo contains all the scripts needed to build a Tailscale 1.38.4 package fo
 ## Developer:
 0. Install slackpkg [from here](https://slackpkg.org/documentation.html)
 1. run `make install-linter` to install `sbo-maintainer-tools`
-2. run `make lint`
+2. run `make lint`  to test with `sbolint` and `sbopkglint`
 3. run `make build-package`
 4. submit the package [to SlackBuilds.org here](https://slackbuilds.org/submit/)
 
